@@ -24,7 +24,6 @@
     "express-fileupload": "^0.1.4",
     "express-handlebars": "^3.0.0",
     "method-override": "^2.3.9",
-    "mysql": "^2.14.1",
-    "path-exists": "^3.0.0"
+    "mysql": "^2.14.1"
   }
 }
