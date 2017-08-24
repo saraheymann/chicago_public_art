@@ -1,10 +1,12 @@
 var express = require('express');
+// var fs = require('fs');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var router = require('./controllers/publicArt_controller.js');
 var fileUpload = require('express-fileupload');
 var app = express();
+// var pathExists = require('path-exists');
 
 app.set('port', (process.env.PORT || 3000));
 
