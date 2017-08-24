@@ -16,6 +16,19 @@ CREATE database chicago_public;
 
 USE chicago_public;
 
+# Dump of table api
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `api`;
+
+CREATE TABLE `api` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(250) DEFAULT '',
+  `owner` varchar(250) DEFAULT NULL,
+  `url` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+); 
+
 # Dump of table art
 # ------------------------------------------------------------
 
@@ -23,20 +36,20 @@ DROP TABLE IF EXISTS `art`;
 
 CREATE TABLE `art` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `work` varchar(250) DEFAULT 'untitled',
+  `title` varchar(250) DEFAULT 'untitled',
   `artist` varchar(250) DEFAULT 'unkown',
   `media` varchar(250) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `geolat` float(10,6) DEFAULT NULL,
   `geolng` float(10,6) DEFAULT NULL,
-  `img` blob NOT NULL,
-  `path` char(1) DEFAULT NULL,
+  `path` varchar(250) DEFAULT NULL,
   `date` timestamp NULL DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `location` json NOT NULL,
+  `address` varchar(250) DEFAULT '',
+  `desciption` mediumtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
+) ;
 
 # Dump of table user
 # ------------------------------------------------------------
@@ -50,14 +63,4 @@ CREATE TABLE `user` (
   `password` varchar(15) NOT NULL DEFAULT '',
   `login_name` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-
-
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+);
