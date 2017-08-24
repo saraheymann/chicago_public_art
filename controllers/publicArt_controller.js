@@ -15,14 +15,14 @@ router.post("/upload", function(req, res){
         return res.status(400).send('No files were uploaded.');
     }
 
-    let sampleFile = req.files.sampleFile;
+    let image = req.files.image;
 
     var imgFilePath = '';
-    
-    var isImgPresent = detect('./public/assets/img/' + sampleFile.name);
+
+    var isImgPresent = detect('./public/assets/img/' + image.name);
     if (isImgPresent == null){
-            imgFilePath = ('./public/assets/img/' + sampleFile.name);
-            sampleFile.mv('./public/assets/img/' + sampleFile.name, function(err){
+            imgFilePath = ('./public/assets/img/' + image.name);
+            image.mv('./public/assets/img/' + image.name, function(err){
                 if (err){
                     return res.status(500).send(err);
                 }
