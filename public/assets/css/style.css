@@ -3,9 +3,25 @@
 	box-sizing: border-box;
 }
 
+html, body, .mapWrapper {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
 /*Classes*/
 
+.mapWrapper {
+	clear: both;
+}
 
+.navWrapper {
+
+}
+
+.nav-text {
+	
+}
 
 /*Individual IDs*/
 
