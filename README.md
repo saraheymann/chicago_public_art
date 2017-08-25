@@ -8,10 +8,14 @@
 - Run NPM install
     + This will install the following node.js modules:
         - Express.js
-        - Body-parser
+        - Body-Parser
         - Express-Handlebars
         - MySql
         - Method-Override
+        - Path-Exists
+        - File-System
+        - Express-FileUpload
+        - Detect-File
 
 # Using the Chicago Public Art App
 - Currently under construction. Check back soon!
