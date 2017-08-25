@@ -12,7 +12,7 @@ router.post("/upload", function(req, res){
     if(!req.files){
         return res.status(400).send('No files were uploaded.');
     }
-
+    
     let image = req.files.image;
 
     var imgFilePath = '';
@@ -34,6 +34,13 @@ router.post("/upload", function(req, res){
 
     artAction.add(imgFilePath);
 
+    var newArtDetails = {
+        description: req.body.description,
+        address: req.body.address,
+        filePath: imgFilePath
+    }
+
+    console.log(newArtDetails);
 });
 
 module.exports = router;
