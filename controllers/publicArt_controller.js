@@ -1,7 +1,6 @@
 var express = require("express");
 var detect = require('detect-file');
 var fs = require('fs');
-// // import models
 var artAction = require("../models/publicArt.js");
 var router = express.Router();
 
@@ -35,7 +34,6 @@ router.post("/upload", function(req, res){
 
     artAction.add(imgFilePath);
 
-    console.log(imgFilePath);
 });
 
 module.exports = router;
