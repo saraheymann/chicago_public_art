@@ -1,9 +1,8 @@
 var express = require("express");
-var pathExists = require('path-exists');
 var detect = require('detect-file');
 var fs = require('fs');
 // // import models
-// // var burgerAction = require("../models/burger.js");
+var artAction = require("../models/publicArt.js");
 var router = express.Router();
 
 router.get("/", function(req,res){
@@ -21,7 +20,7 @@ router.post("/upload", function(req, res){
 
     var isImgPresent = detect('./public/assets/img/' + image.name);
     if (isImgPresent == null){
-            imgFilePath = ('./public/assets/img/' + image.name);
+            imgFilePath = ('/public/assets/img/' + image.name);
             image.mv('./public/assets/img/' + image.name, function(err){
                 if (err){
                     return res.status(500).send(err);
@@ -33,6 +32,9 @@ router.post("/upload", function(req, res){
     } else {
          res.send("file didn't upload because the same name exists on the server.  Please rename and try again.");
     }
+
+    artAction.add(imgFilePath);
+
     console.log(imgFilePath);
 });
 
