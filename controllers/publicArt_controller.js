@@ -1,5 +1,4 @@
 var express = require("express");
-var pathExists = require('path-exists');
 var detect = require('detect-file');
 var fs = require('fs');
 // // import models
