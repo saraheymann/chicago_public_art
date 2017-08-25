@@ -1,71 +1,32 @@
-<main>
- {{!-- feature/file_upload
-  form to input data, we may want to put this on another page   --}}
-    {{!-- <form ref='uploadForm' 
-      id='uploadForm' 
-      action='http://localhost:3000/upload' 
-      method='post' 
-      encType="multipart/form-data">
-        <input type="file" name="image" required />
-        <input type='submit' value='Upload!' />
-        <input type="text" name="description" id="descriptionBox" required/>
-        <input type="text" name="address" id="addressBox" required />
-    </form>      --}}
-
-    <div class="container-fluid mapWrapper">
-
-        <div class="col-lg-2 cntr navbar-container navbar" role="header">
-
-            <div class="navWrapper">
-
-                {{!-- this is a dummy for now; will add drop later --}}
-                <div class="row navItem" id="typeDrop" alt="enter an art type">
-                    <span class="nav-text">
-                        TYPE
-                    </span>
-                </div>
-
-                <div class="row navItem" id="locZoom" alt="zoom to my location">
-                    <span class="nav-text">
-                        LOCATION
-                    </span>
-                </div>
-
-                <div class="row navItem" id="otherSearch" alt="other search criteria">
-                    <span class="nav-text">
-                        OTHER
-                    </span>
-                </div>
-
-                <div class="row navItem" id="addArt" alt="add an artwork">
-                    <span class="nav-text">
-                        ADD ARTWORK
-                    </span>
-                </div>
-
-                <div class="row navItem" id="aboutPage" alt="about our app">
-                    <span class="nav-text">
-                        ABOUT
-                    </span>
-                </div>
-
-                <div class="row navItem" id="apiPage" alt="api for developers">
-                    <span class="nav-text">
-                        API
-                    </span>
-                </div>
-
+<body>
+ 
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            <a class="navbar-brand" href="#">Chicago Public Art Map</a>
             </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Add Artwork <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="#">About <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="#">API <span class="sr-only">(current)</span></a></li>
+                    
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
-        </div>
-
-        <div id= "map" class="mapWrapper">
+        <div id= "map">
+         </div> 
             <script>
+            
+
                 function initMap() {
-                    var map = new google.maps.Map(document.getElementById('map'), {zoom: 8});
+                       var map = new google.maps.Map(document.getElementById('map'), {zoom: 12, passive: true}); 
                     var geocoder = new google.maps.Geocoder;
                     
-                    geocoder.geocode({'address': 'Toledo'}, function(results, status) {
+                    geocoder.geocode({'address': 'Chicago'}, function(results, status) {
                         if (status === 'OK') {
                             map.setCenter(results[0].geometry.location);
                             new google.maps.Marker({
@@ -77,12 +38,13 @@
                             window.alert('Geocode was not successful for the following reason: ' + status);
                         }
                     });
-                }
+                    
+                }  
             </script>
 
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyrCSftGam0-rKNG6IQwobVMoo5j8QauY&callback=initMap"></script>
             
-        </div>
+         </div> 
 
         <footer class="footer">
             <div class="container center-align no-pad-bot">
