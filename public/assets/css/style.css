@@ -10,22 +10,20 @@
 }
 
 /*Classes*/
-
-.mapWrapper {
-	clear: both;
-	background-color: orange;
-}
-.navbar{
+.navStyle{
 	background-color:black;
-	margin-bottom: 0px:
+	margin-bottom: 0px;
 }
-#map {
+#navHead{
+	color: white;
+	font-family: 'Amiko', sans-serif;
+	font-size: 50px;
+	margin-top: 10px;
+}
+.nav{
+	margin-top: 10px;
+}
+#map{
 		height: 100%;
 		margin-top: 0px;
-      }
-
-/*Individual IDs*/
-
-
-
-/* Queries (if needed)    */
+}
