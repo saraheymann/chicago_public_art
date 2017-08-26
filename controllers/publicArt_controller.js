@@ -21,7 +21,7 @@ router.post("/upload", function(req, res){
     console.log(image.mimetype);
 
     if (isImgPresent == null){
-        if (image.mimetype !== 'image/png' || image.mimetype !== 'image/jpeg'){
+        if (image.mimetype !== 'image/png' && image.mimetype !== 'image/jpeg'){
             return res.send("You tried uploading a bad filetype.  Please upload PNG or JPEG files ONLY!")
         }
             imgFilePath = ('/public/assets/img/' + image.name);
