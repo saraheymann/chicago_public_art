@@ -64,27 +64,21 @@
             });
 
             });
-            promise.then(function(sqlData){
-                var JSONItems = [];
+            promise.then(function(data){
                 var map = new google.maps.Map(document.getElementById('map'), {zoom: 12, passive: true}); 
                 var geocoder = new google.maps.Geocoder;
                 
                 geocoder.geocode({'address': 'Chicago'}, function(results, status) {
                     if (status === 'OK') {
                     map.setCenter(results[0].geometry.location);
-                    var parsedJSON = JSON.parse(sqlData);
-                    var parsedJSONArray = parsedJSON.art;
-                    parsedJSONArray.forEach(function(element){
-                        var geoObject = {
-                            lat: element.lat,
-                            lng: element.long
-                        }
                         new google.maps.Marker({
                             map: map,
-                            position: geoObject
+                            position: results[0].geometry.location
                         });
-                    })
-
+                        new google.maps.Marker({
+                            position: {lat: 41.879986, lng: -87.6669848},
+                            map:map
+                        });
                     } else {
                         window.alert('Geocode was not successful for the following reason: ' + status);
                     }
