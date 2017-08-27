@@ -72,6 +72,7 @@ router.post("/upload", function(req, res){
         }
         newArtObject();
         artAction.add(newArtDetails);
+        res.redirect('/');
 
 
     }
