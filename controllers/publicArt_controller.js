@@ -50,9 +50,6 @@ router.post("/upload", function(req, res){
         geoLat = res[0].latitude;
         geoLong = res[0].longitude;
       imageUpload();
-      newArtObject();
-      artAction.add(newArtDetails);
-
     })
     .catch(function(err) {
       console.log(err);
@@ -68,17 +65,21 @@ router.post("/upload", function(req, res){
                     if (err){
                         return res.status(500).send(err);
                     }
-                    res.send('File uploaded!');
                 })
         } else {
              res.send("file didn't upload because the same name exists on the server.  Please rename and try again.");
+             return;
         }
+        newArtObject();
+        artAction.add(newArtDetails);
+
 
     }
 
     function newArtObject(){
         newArtDetails = {
             description: req.body.description,
+            address: req.body.address,
             lat: geoLat,
             long: geoLong,
             filePath: imgFilePath

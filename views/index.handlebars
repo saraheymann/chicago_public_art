@@ -24,12 +24,12 @@
                     method='post' 
                     encType="multipart/form-data">
                         <input type="file" name="image" required />
-                        <input type='submit' value='Upload!' />
+                        <input id="submitBox" type='submit' value='Upload!' />
                         <input type="text" name="description" id="descriptionBox" required/>
                         <input type="text" name="address" id="addressBox" required />
             </form>
             
-            <button id="populateArt">Click me</button>
+            <button id="populateArt">Load all Art</button>
         <div id= "map"></div>
 
     <script>
@@ -47,7 +47,7 @@
         }
 
         $("#populateArt").on("click", function() {
-            event.preventDefault();
+            initMap();
         });
 
         //listen for submit event and run function to get data again
@@ -76,8 +76,8 @@
                     var parsedJSONArray = parsedJSON.art;
                     parsedJSONArray.forEach(function(element){
                         var geoObject = {
-                            lat: element.lat,
-                            lng: element.long
+                            lat: parseFloat(element.lat),
+                            lng: parseFloat(element.long)
                         }
                         new google.maps.Marker({
                             map: map,
