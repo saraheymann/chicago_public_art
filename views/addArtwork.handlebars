@@ -50,6 +50,7 @@
         </div>
 
         <div class="modal-content">
+            <h4 id="modalArtistName"></h4>
             <h4 id="modalArtName"></h4>
             <h4 id="modalLocation"></h4>
             <h4 id="modalDescription"></h4>
@@ -68,6 +69,24 @@
             // should req a post to an api folder
                 // grab data from api folder and push to modal
                     //toggle modal once done
+
+            var artworksInput = {
+                artist: $('#artistNameInput').val().trim(),
+                artwork: $('#artworkNameInput').val().trim(),
+                location: $('#locationInput').val().trim(),
+                description: $('#artDescriptInput').val().trim()
+            }
+
+            var currentUrl = window.location.origin;
+
+            $.post(currentUrl + '/api/artworks', artworksInput, function(data) {
+                $('#modalArtistName').text(data.artist);
+                $('#modalArtName').text(data.artwork);
+                $('#modalLocation').text(data.location);
+                $('#modalDescription').text(data.description);
+            });
+
+            return false;
         });
 
         function placeMarker(location) {
