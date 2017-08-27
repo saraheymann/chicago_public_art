@@ -7,33 +7,33 @@ var NodeGeocoder = require('node-geocoder');
 
 var options = {
     provider: 'google',
-
+   
     // Optional depending on the providers
     httpAdapter: 'https', // Default
-    apiKey: 'AIzaSyCf-3z1vv2pgDOcWmZnH6yKB0ZV06eLfCQ', // for Mapquest, OpenCage, Google Premier
-    formatter: null // 'gpx', 'string', ...
-};
+    apiKey: 'AIzaSyCyrCSftGam0-rKNG6IQwobVMoo5j8QauY', // for Mapquest, OpenCage, Google Premier
+    formatter: null         // 'gpx', 'string', ...
+  };
 
 var geocoder = NodeGeocoder(options);
 
 
-router.get("/table", function(req, res) {
+router.get("/table", function(req,res){
 
-    artAction.all(function(data) {
+    artAction.all(function(data){
         var artTableList = {
-            art: data
+            art:data
         };
         res.send(artTableList);
     });
-
+    
 });
 
-router.get("/", function(req, res) {
-    res.render("index");
+router.get("/", function(req,res){
+        res.render("index");
 });
+    
 
-
-router.post("/upload", function(req, res) {
+router.post("/upload", function(req, res){
     var geoLat = '';
     var geoLong = '';
     var newArtDetails = {};
@@ -42,41 +42,41 @@ router.post("/upload", function(req, res) {
     let image = req.files.image;
     var isImgPresent = detect('./public/assets/img/' + image.name);
 
-    if (!req.files) {
+    if(!req.files){
         return res.status(400).send('No files were uploaded.');
     }
     geocoder.geocode(req.body.address)
-        .then(function(res) {
-            geoLat = res[0].latitude;
-            geoLong = res[0].longitude;
-            imageUpload();
-        })
-        .catch(function(err) {
-            console.log(err);
-        });
-
+    .then(function(res) {
+        geoLat = res[0].latitude;
+        geoLong = res[0].longitude;
+      imageUpload();
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+    
     function imageUpload() {
-        if (isImgPresent == null) {
-            if (image.mimetype !== 'image/png' && image.mimetype !== 'image/jpeg') {
+        if (isImgPresent == null){
+            if (image.mimetype !== 'image/png' && image.mimetype !== 'image/jpeg'){
                 return res.send("You tried uploading a bad filetype.  Please upload PNG or JPEG files ONLY!")
             }
-            imgFilePath = ('/public/assets/img/' + image.name);
-            image.mv('./public/assets/img/' + image.name, function(err) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-            })
+                imgFilePath = ('/public/assets/img/' + image.name);
+                image.mv('./public/assets/img/' + image.name, function(err){
+                    if (err){
+                        return res.status(500).send(err);
+                    }
+                })
         } else {
-            res.send("file didn't upload because the same name exists on the server.  Please rename and try again.");
-            return;
+             res.send("file didn't upload because the same name exists on the server.  Please rename and try again.");
+             return;
         }
         newArtObject();
         artAction.add(newArtDetails);
-        res.redirect('/');
+
 
     }
 
-    function newArtObject() {
+    function newArtObject(){
         newArtDetails = {
             description: req.body.description,
             address: req.body.address,
@@ -84,8 +84,8 @@ router.post("/upload", function(req, res) {
             long: geoLong,
             filePath: imgFilePath
         }
-    }
-
+    }   
+ 
 });
 
 module.exports = router;

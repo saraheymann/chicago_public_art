@@ -8,7 +8,7 @@ var fileUpload = require('express-fileupload');
 var app = express();
 
 
-app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.PORT || 3000));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,13 +19,13 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(process.cwd() + '/public'));
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.use(fileUpload());
 
 app.use('/', router);
 
-app.listen(app.get('port'), function() {
-    console.log('running on 8080')
+app.listen(app.get('port'), function(){
+    console.log('running on 3000')
 });
