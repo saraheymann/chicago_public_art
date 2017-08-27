@@ -38,13 +38,25 @@
         </div>
 
         <div class="row">
-            <button type="submit" id="form-submit" class="btn btn-success btn-lg">
+            <button type="submit" id="formButton" class="btn btn-success btn-lg">
                 Submit Artwork
             </button>
         </div>
     </div>
 
-    <script>
+    <div class="modal" id="submitModal">
+        <div class="modal-header">
+            <h2>Thank you for your submission to the Chicago Public Art Project</h2>
+        </div>
+
+        <div class="modal-content">
+            <h4 id="modalArtName"></h4>
+            <h4 id="modalLocation"></h4>
+            <h4 id="modalDescription"></h4>
+        </div>
+    </div>
+
+    <script type="text/javascript">
 
         var marker;
 
@@ -63,9 +75,9 @@
         var contentString = '<div id="content">'+
             '<div id="siteNotice">' +
             '</div>' + '<div style="float:left"><img src="imgVariable"></div>'
-            '<h1 id="firstHeading" class="firstHeading">'NameOfArtwork'</h1>' +
-            '<div id="bodyContent">' + '<p>'address'<p><br>'
-            '<p>'description'</p>' +
+            '<h1 id="firstHeading" class="firstHeading">'artworkNameInput'</h1>' +
+            '<div id="bodyContent">' + '<p>'locationInput'<p><br>'
+            '<p>'artDescriptInput'</p>' +
             '</div>' +
             '</div>';
             
