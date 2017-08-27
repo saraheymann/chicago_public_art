@@ -20,7 +20,7 @@
             <form class= "form-inline" 
                     ref='uploadForm' 
                     id='uploadForm' 
-                    action='http://localhost:3000/upload' 
+                    action='http://localhost:8080/upload' 
                     method='post' 
                     encType="multipart/form-data">
                         <input type="file" name="image" required />
@@ -48,7 +48,7 @@
 
         function initMap() {
             var promise = new Promise (function(resolve,reject){
-            httpGetAsync('http://localhost:3000/table', function(data){
+            httpGetAsync('http://localhost:8080/table', function(data){
                 sqlData = data;
                 if(sqlData !== 'undefined'){
                     resolve(sqlData);
@@ -88,7 +88,7 @@
 
     </script>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyrCSftGam0-rKNG6IQwobVMoo5j8QauY&callback=initMap"></script> 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCf-3z1vv2pgDOcWmZnH6yKB0ZV06eLfCQ&callback=initMap"></script> 
 
     <footer class="footer">
         <div class="container center-align no-pad-bot">
