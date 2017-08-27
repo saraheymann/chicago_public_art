@@ -9,27 +9,34 @@
     </form>      --}}
 
     {{!--on submit we need to generate a marker  --}}
+
+<body>
+
     <script>
+
         var marker;
+
         $('#formButton').addListener('click', function(event) {
             //latLng will have to be changed to however we're grabbing that data
             placeMarker(event.latLng);
         });
 
         function placeMarker(location) {
-        var marker = new google.maps.Marker({
-            position: location, 
-            map: map
+            var marker = new google.maps.Marker({
+                position: location, 
+                map: map
         });
+
         //we'll need to update the info Window content string with the variables attached to the data
         var contentString = '<div id="content">'+
-      '<div id="siteNotice">'+
-      '</div>'+ '<div style='float:left'><img src='imgVariable'></div>
-      '<h1 id="firstHeading" class="firstHeading">'NameOfArtwork'</h1>'+
-      '<div id="bodyContent">'+ '<p>'address'<p><br>'
-      '<p>'description'</p>'+
-      '</div>'+
-      '</div>';
+            '<div id="siteNotice">' +
+            '</div>' + '<div style="float:left"><img src="imgVariable"></div>'
+            '<h1 id="firstHeading" class="firstHeading">'NameOfArtwork'</h1>' +
+            '<div id="bodyContent">' + '<p>'address'<p><br>'
+            '<p>'description'</p>' +
+            '</div>' +
+            '</div>';
+            
         var infowindow = new google.maps.InfoWindow({
             content: contentString
         });
@@ -39,4 +46,7 @@
         });
 
         map.setCenter(location);
+
     <script>
+
+</body>

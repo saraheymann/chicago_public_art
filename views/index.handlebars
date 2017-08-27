@@ -1,5 +1,5 @@
 
-<body>
+<main>
  
     <nav class="navbar navbar-default navStyle">
         <div class="container-fluid">
@@ -17,18 +17,20 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-            <form class= "form-inline" 
-                    ref='uploadForm' 
-                    id='uploadForm' 
-                    action='http://localhost:8080/upload' 
-                    method='post' 
-                    encType="multipart/form-data">
-                        <input type="file" name="image" required />
-                        <input id="submitBox" type='submit' value='Upload!' />
-                        <input type="text" name="description" id="descriptionBox" required/>
-                        <input type="text" name="address" id="addressBox" required />
-            </form>
-        <div id= "map"></div>
+
+    <form class= "form-inline" 
+        ref='uploadForm' 
+        id='uploadForm' 
+        action='http://localhost:8080/upload' 
+        method='post' 
+        encType="multipart/form-data">
+            <input type="file" name="image" required />
+            <input id="submitBox" type='submit' value='Upload!' />
+            <input type="text" name="description" id="descriptionBox" required/>
+            <input type="text" name="address" id="addressBox" required />
+    </form>
+
+    <div id= "map"></div>
 
     <script>
 
@@ -53,7 +55,7 @@
                 if(sqlData !== 'undefined'){
                     resolve(sqlData);
                 } else {
-                    reject(Error("wrong shit man!"));
+                    reject(Error("Could not init map"));
                 }
             });
 
@@ -95,7 +97,5 @@
             <a href="https://github.com/saraheymann/chicago_public_art" target="_blank" class="footerLink"><h4>2017 Chicago Public Art Project</h4></a>
         </div>
     </footer>
-
-    
 
 </main>
