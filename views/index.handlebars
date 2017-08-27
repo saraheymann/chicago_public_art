@@ -28,8 +28,6 @@
                         <input type="text" name="description" id="descriptionBox" required/>
                         <input type="text" name="address" id="addressBox" required />
             </form>
-            
-            <button id="populateArt">Load all Art</button>
         <div id= "map"></div>
 
     <script>
@@ -45,10 +43,6 @@
             xmlHttp.open("GET", theUrl, true); // true for asynchronous 
             xmlHttp.send(null);
         }
-
-        $("#populateArt").on("click", function() {
-            initMap();
-        });
 
         //listen for submit event and run function to get data again
 

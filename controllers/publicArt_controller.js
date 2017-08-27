@@ -10,7 +10,7 @@ var options = {
    
     // Optional depending on the providers
     httpAdapter: 'https', // Default
-    apiKey: 'YOU NEED TO ADD THIS!!!', // for Mapquest, OpenCage, Google Premier
+    apiKey: 'ADD API KEY HERE', // for Mapquest, OpenCage, Google Premier
     formatter: null         // 'gpx', 'string', ...
   };
 
@@ -72,7 +72,7 @@ router.post("/upload", function(req, res){
         }
         newArtObject();
         artAction.add(newArtDetails);
-
+        res.redirect('/');
 
     }
 
