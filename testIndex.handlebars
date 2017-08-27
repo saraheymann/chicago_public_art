@@ -20,7 +20,7 @@
             <form class= "form-inline" 
                     ref='uploadForm' 
                     id='uploadForm' 
-                    action='http://localhost:8080/upload' 
+                    action='https://localhost:3000/upload' 
                     method='post' 
                     encType="multipart/form-data">
                         <input type="file" name="image" required />
@@ -54,7 +54,7 @@
 
         function initMap() {
             var promise = new Promise (function(resolve,reject){
-            httpGetAsync('http://localhost:8080/table', function(data){
+            httpGetAsync('https://localhost:3000/table', function(data){
                 sqlData = data;
                 if(sqlData !== 'undefined'){
                     resolve(sqlData);

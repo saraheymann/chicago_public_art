@@ -19,13 +19,13 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(process.cwd() + '/public'));
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 app.use(fileUpload());
 
 app.use('/', router);
 
-app.listen(app.get('port'), function(){
+app.listen(app.get('port'), function() {
     console.log('running on 3000')
 });
