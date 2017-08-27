@@ -63,6 +63,11 @@
         $('#formButton').addListener('click', function(event) {
             //latLng will have to be changed to however we're grabbing that data
             placeMarker(event.latLng);
+
+            // post to api, then push content to modal
+            // should req a post to an api folder
+                // grab data from api folder and push to modal
+                    //toggle modal once done
         });
 
         function placeMarker(location) {
