@@ -14,7 +14,7 @@
                 {{!-- <li class="linkColor col-lg-9" id="tagline">a crowd sourced public art database</li> --}}
                 {{!-- <li class="active"><button type="button" class="btn btn-default">Add Artwork</button></li> --}}
                 <li class="col-lg-4 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="http://localhost:8080/about">ABOUT<span class="sr-only">(current)</span></a></li>
-                <li class="col-lg-6 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="#">API <span class="sr-only">(current)</span></a></li>
+                <li class="col-lg-6 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="http://localhost:8080/api/artworks">API <span class="sr-only">(current)</span></a></li>
             </ul>       
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -127,7 +127,22 @@
         // Submit modal toggle
         $('#submitBox').on('click', function(event) {
             $('#submitModal').modal('toggle');
-        })  
+
+            // API
+            var artworksInput = {
+                description: $('#description').val().trim(),
+                address: $('#address').val().trim() 
+            }
+
+            var currentURL = window.location.origin;
+
+            $.post(currentURL + '/api/artworks', function(data) {
+                $('#submitModalDesc').text(data.description);
+                $('#submitModalAddress').text(data.address);
+            });
+
+            return false;
+        })
 
     </script>
 
@@ -181,7 +196,9 @@
                     </div>
 
                     <div class="modal-body">
-                        <p>Thank you for your submission!</p>
+                        <p>Thank you for your submission of:</p>
+                        <p id='submitModalDesc'></p>
+                        <p id='submitModalAddress'></p>
                     </div>
 
                     <div class="modal-footer">
