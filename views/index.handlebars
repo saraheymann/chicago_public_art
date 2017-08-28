@@ -19,18 +19,20 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-            <form class= "form-inline" 
-                    ref='uploadForm' 
-                    id='uploadForm' 
-                    action='./upload' 
-                    method='post' 
-                    encType="multipart/form-data">
-                        <input class="form-control formBorder" type="file" name="image" required />
-                        <input class="form-control" type="text" name="description" id="descriptionBox" placeholder="Description" required/>
-                        <input class="form-control" type="text" name="address" id="addressBox" placeholder="address" required />
-                        <input class="form-control" id="submitBox" type='submit' value='Upload!' />
-            </form>
-        <div id= "map"></div>
+
+    <form class= "form-inline" 
+            ref='uploadForm' 
+            id='uploadForm' 
+            action='./upload' 
+            method='post' 
+            encType="multipart/form-data">
+                <input class="form-control formBorder" type="file" name="image" required />
+                <input class="form-control" type="text" name="description" id="descriptionBox" placeholder="Description" required/>
+                <input class="form-control" type="text" name="address" id="addressBox" placeholder="address" required />
+                <input class="form-control" id="submitBox" type='submit' value='Upload!' />
+    </form>
+
+    <div id= "map"></div>
 
     <script>
 
@@ -59,7 +61,8 @@
                 if(sqlData !== 'undefined'){
                     resolve(sqlData);
                 } else {
-                    reject(Error("wrong shit man!"));
+                    reject(Error());
+                    $('#errorModalOne').modal('toggle');
                 }
             });
 
@@ -113,16 +116,81 @@
                     })
 
                     } else {
-                        window.alert('Geocode was not successful for the following reason: ' + status);
+                        $('#errorModalTwo').modal('toggle')
+                        // window.alert('Geocode was not successful for the following reason: ' + status);
                     }
                 });
             })  
            
-        }  
+        }
+
+        // Submit modal toggle
+        $('#submitBox').on('click', function(event) {
+            $('#submitModal').modal('toggle');
+        })  
 
     </script>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyrCSftGam0-rKNG6IQwobVMoo5j8QauY&callback=initMap"></script> 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyrCSftGam0-rKNG6IQwobVMoo5j8QauY&callback=initMap"></script>
+
+    {{!-- Modals --}}
+        {{!-- Init Error Modal --}}
+        <div class="modal fade" id="errorModalOne" role='dialog'>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Failure to initialize Chicago Public Art Map</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>An error occured while initializing the map.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- Geocode Error Modal --}}
+        <div class="modal fade" id='errorModalTwo' role='dialog'>
+            <div class="moda-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Failure to Geocode content</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p id='geocodeErrorMsg'></p>    
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!-- Submission Modal --}}
+        <div class="modal fade" id='submitModal' role='dialog'>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Artwork Submitted</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Thank you for your submission!</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type='button' class='btn btn-primary' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     <footer class="footer">
         <div class="container center-align no-pad-bot">
