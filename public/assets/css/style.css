@@ -40,7 +40,7 @@ nav{
 #linkColor{
 	color: white;
 	margin-top: 15px;
-	 margin-left: 110px; 
+	margin-left: 110px; 
 }
 form{
 	padding-bottom: 10px;
@@ -86,19 +86,16 @@ footer{
 }
 
 .aboutContainer{
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-.aboutMessage{
+	margin: 30px;
 	box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.8);
 	height: 100%;
-	width: 600px;
+	width: 100px;
 	background-color: white;
-	margin: auto;
 	border: 5px solid black;
 	padding: 30px;
 	font-family:'Work Sans', sans-serif;
-	margin-bottom: 30px;
+	margin-left: 135px;
+	padding-top: 5px;
 }
 
 .aboutDescript{
@@ -113,6 +110,31 @@ h4{
 	bottom: 0px;
 	width: 100%;
 	height: 60px;
+}
+
+@media only screen and (max-width: 970px){
+	#navHead{
+		margin-left: 60px;
+	}
+	#linkColor{
+		margin-left: 200px;
+		font-size: 30px;
+	}
+	.aboutContainer{
+		width: 720px;
+	}
+}
+@media only screen and (max-width: 768px){
+	#navHead{
+		margin-left: 5px;
+		font-size: 40px;
+	}
+	#linkColor{
+		 margin-left: 130px; 
+	}
+	.aboutContainer{
+		width: 520px;
+	}
 }
 
 
