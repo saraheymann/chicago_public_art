@@ -31,6 +31,10 @@ router.get("/table", function(req,res){
 router.get("/", function(req,res){
         res.render("index");
 });
+
+router.get("/about", function(req,res){
+        res.render("about");
+});
     
 
 router.post("/upload", function(req, res){
@@ -60,7 +64,7 @@ router.post("/upload", function(req, res){
             if (image.mimetype !== 'image/png' && image.mimetype !== 'image/jpeg'){
                 return res.send("You tried uploading a bad filetype.  Please upload PNG or JPEG files ONLY!")
             }
-                imgFilePath = ('/public/assets/img/' + image.name);
+                imgFilePath = ('/assets/img/' + image.name);
                 image.mv('./public/assets/img/' + image.name, function(err){
                     if (err){
                         return res.status(500).send(err);
@@ -72,6 +76,7 @@ router.post("/upload", function(req, res){
         }
         newArtObject();
         artAction.add(newArtDetails);
+        res.redirect('/');
 
 
     }

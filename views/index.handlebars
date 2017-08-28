@@ -1,18 +1,20 @@
 
 <body>
  
-    <nav class="navbar navbar-default navStyle">
-        <div class="container-fluid">
+    <nav class="navbar navbar-default navStyle" id="customNav">
+        <div class="container-fluid row3">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-            <a class="navbar-brand navStyle" id="navHead" href="#">Chicago Public Art Map</a>
+            <a class="navbar-brand navStyle" id="navHead" href="#">CHICAGO PUBLIC ART DATABASE</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navStyle" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" id="list">
+             
+             <ul class="nav navbar-nav" id="list"> 
+                {{!-- <li class="linkColor col-lg-9" id="tagline">a crowd sourced public art database</li> --}}
                 {{!-- <li class="active"><button type="button" class="btn btn-default">Add Artwork</button></li> --}}
-                <li class="active"><a href="#">About <span class="sr-only">(current)</span></a></li>
-                <li class="active"><a href="#">API <span class="sr-only">(current)</span></a></li>
+                <li class="col-lg-4"><a class="linkSet" id="linkColor" href="http://localhost:8080/about">ABOUT<span class="sr-only">(current)</span></a></li>
+                <li class="col-lg-6"><a class="linkSet" id="linkColor" href="#">API <span class="sr-only">(current)</span></a></li>
             </ul>       
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -20,16 +22,14 @@
             <form class= "form-inline" 
                     ref='uploadForm' 
                     id='uploadForm' 
-                    action='http://localhost:3000/upload' 
+                    action='./upload' 
                     method='post' 
                     encType="multipart/form-data">
-                        <input type="file" name="image" required />
-                        <input id="submitBox" type='submit' value='Upload!' />
-                        <input type="text" name="description" id="descriptionBox" required/>
-                        <input type="text" name="address" id="addressBox" required />
+                        <input class="form-control formBorder" type="file" name="image" required />
+                        <input class="form-control" type="text" name="description" id="descriptionBox" placeholder="Description" required/>
+                        <input class="form-control" type="text" name="address" id="addressBox" placeholder="address" required />
+                        <input class="form-control" id="submitBox" type='submit' value='Upload!' />
             </form>
-            
-            <button id="populateArt">Load all Art</button>
         <div id= "map"></div>
 
     <script>
@@ -54,7 +54,7 @@
 
         function initMap() {
             var promise = new Promise (function(resolve,reject){
-            httpGetAsync('http://localhost:3000/table', function(data){
+            httpGetAsync('./table', function(data){
                 sqlData = data;
                 if(sqlData !== 'undefined'){
                     resolve(sqlData);
@@ -74,7 +74,9 @@
                     map.setCenter(results[0].geometry.location);
                     var parsedJSON = JSON.parse(sqlData);
                     var parsedJSONArray = parsedJSON.art;
+                
                     parsedJSONArray.forEach(function(element){
+                        console.log(element);
                         var geoObject = {
                             lat: parseFloat(element.lat),
                             lng: parseFloat(element.long)
@@ -83,13 +85,35 @@
                             map: map,
                             position: geoObject
                         });
+
+                        var contentString = '<div id="content">'+
+                            '<div id="siteNotice">' +
+                            '</div>' + '<div style="float:left"><a href='+element.path+ '></div>'+
+                           '<div id="bodyContent">' + '<p>Click on description for image: '+ element.description +'</p><br>'+
+                            '<p>Address: '+ element.address +'</p>' +
+                            '</div>' +
+                            '</div>'; 
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: geoObject,
+                            map: map,
+                             //title: element. 
+                        });
+                        marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                        });
                     })
 
                     } else {
                         window.alert('Geocode was not successful for the following reason: ' + status);
                     }
                 });
-            })    
+            })  
+           
         }  
 
     </script>
@@ -98,10 +122,10 @@
 
     <footer class="footer">
         <div class="container center-align no-pad-bot">
-            <a href="https://github.com/saraheymann/chicago_public_art" target="_blank" class="footerLink"><h4>2017 Chicago Public Art Project</h4></a>
+            <a href="https://github.com/saraheymann/chicago_public_art" target="_blank" class="footerLink"><h4>2017 Chicago Public Art Database</h4></a>
         </div>
     </footer>
 
     
 
-</main>
+</body>

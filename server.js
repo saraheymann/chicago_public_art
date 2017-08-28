@@ -8,7 +8,7 @@ var fileUpload = require('express-fileupload');
 var app = express();
 
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8080));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,5 +27,5 @@ app.use(fileUpload());
 app.use('/', router);
 
 app.listen(app.get('port'), function(){
-    console.log('running on 3000')
+    console.log('running on 8080')
 });
