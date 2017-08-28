@@ -73,7 +73,9 @@
                     map.setCenter(results[0].geometry.location);
                     var parsedJSON = JSON.parse(sqlData);
                     var parsedJSONArray = parsedJSON.art;
+                
                     parsedJSONArray.forEach(function(element){
+                        console.log(element);
                         var geoObject = {
                             lat: parseFloat(element.lat),
                             lng: parseFloat(element.long)
@@ -82,13 +84,35 @@
                             map: map,
                             position: geoObject
                         });
+
+                        var contentString = '<div id="content">'+
+                            '<div id="siteNotice">' +
+                            '</div>' + '<div style="float:left"><a href='+element.path+ '></div>'+
+                           '<div id="bodyContent">' + '<p>Click on description for image: '+ element.description +'</p><br>'+
+                            '<p>Address: '+ element.address +'</p>' +
+                            '</div>' +
+                            '</div>'; 
+
+                        var infowindow = new google.maps.InfoWindow({
+                            content: contentString
+                        });
+
+                        var marker = new google.maps.Marker({
+                            position: geoObject,
+                            map: map,
+                             //title: element. 
+                        });
+                        marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                        });
                     })
 
                     } else {
                         window.alert('Geocode was not successful for the following reason: ' + status);
                     }
                 });
-            })    
+            })  
+           
         }  
 
     </script>
