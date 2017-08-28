@@ -31,6 +31,10 @@ router.get("/table", function(req,res){
 router.get("/", function(req,res){
         res.render("index");
 });
+
+router.get("/about", function(req,res){
+        res.render("about");
+});
     
 
 router.post("/upload", function(req, res){
