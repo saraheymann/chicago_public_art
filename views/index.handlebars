@@ -88,8 +88,8 @@
 
                         var contentString = '<div id="content">'+
                             '<div id="siteNotice">' +
-                            '</div>' + '<div style="float:left"><a href='+element.path+ '></div>'+
-                           '<div id="bodyContent">' + '<p>Click on description for image: '+ element.description +'</p><br>'+
+                            '</div>' + '<div style="float:left"><img height="200px" width="200px" src='+element.path+'></div>'+
+                           '<div id="bodyContent">' + '<p>description: '+ element.description +'</p><br>'+
                             '<p>Address: '+ element.address +'</p>' +
                             '</div>' +
                             '</div>'; 
@@ -97,11 +97,15 @@
                         var infowindow = new google.maps.InfoWindow({
                             content: contentString
                         });
-                         //var image = 'http://localhost:8080/'+ element.path; 
+                         var icon = {
+                             url: element.path,
+                             scaledSize: new google.maps.Size(50, 50)
+                         }
                         var marker = new google.maps.Marker({
                             position: geoObject,
                             map: map,
-                             //title: element. 
+                             //title: element.
+                            icon: icon 
                         });
                         marker.addListener('click', function() {
                             infowindow.open(map, marker);
