@@ -13,8 +13,8 @@
              <ul class="nav navbar-nav" id="list"> 
                 {{!-- <li class="linkColor col-lg-9" id="tagline">a crowd sourced public art database</li> --}}
                 {{!-- <li class="active"><button type="button" class="btn btn-default">Add Artwork</button></li> --}}
-                <li class="col-lg-4 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="http://localhost:8080/about">ABOUT<span class="sr-only">(current)</span></a></li>
-                <li class="col-lg-6 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="#">API <span class="sr-only">(current)</span></a></li>
+                <li class="col-lg-4 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="https://pure-atoll-15112.herokuapp.com/about">ABOUT<span class="sr-only">(current)</span></a></li>
+                <li class="col-lg-6 col-md-6 col-sm-6"><a class="linkSet" id="linkColor" href="https://pure-atoll-15112.herokuapp.com/api">API <span class="sr-only">(current)</span></a></li>
             </ul>       
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -26,6 +26,8 @@
                     method='post' 
                     encType="multipart/form-data">
                         <input class="form-control formBorder" type="file" name="image" required />
+                        <input class="form-control" type="text" name="artist" id="artistBox" placeholder="artist (if known)"/>
+                        <input class="form-control" type="text" name="title" id="titleBox" placeholder="title (if known)" required/>
                         <input class="form-control" type="text" name="description" id="descriptionBox" placeholder="Description" required/>
                         <input class="form-control" type="text" name="address" id="addressBox" placeholder="address" required />
                         <input class="form-control" id="submitBox" type='submit' value='Upload!' />
@@ -89,8 +91,8 @@
                         var contentString = '<div id="content">'+
                             '<div id="siteNotice">' +
                             '</div>' + '<div style="float:left"><img height="200px" width="200px" src='+element.path+'></div>'+
-                           '<div id="bodyContent">' + '<p>description: '+ element.description +'</p><br>'+
-                            '<p>Address: '+ element.address +'</p>' +
+                           '<div id="bodyContent">' + '<p>artist(if known): '+ element.artist + '</p><p>title(if known):'+element.title+'</p><p>description: '+ element.description +'</p>'+
+                            '<p>Address: '+ element.address +'</p><a href='+ element.path +'>Click for larger image</a>'
                             '</div>' +
                             '</div>'; 
 

@@ -35,6 +35,10 @@ router.get("/", function(req,res){
 router.get("/about", function(req,res){
         res.render("about");
 });
+
+router.get("/api", function(req,res){
+        res.render("api");
+});
     
 
 router.post("/upload", function(req, res){
@@ -83,6 +87,8 @@ router.post("/upload", function(req, res){
 
     function newArtObject(){
         newArtDetails = {
+            artist: req.body.artist,
+            title: req.body.title,
             description: req.body.description,
             address: req.body.address,
             lat: geoLat,
