@@ -7,25 +7,21 @@ var NodeGeocoder = require('node-geocoder');
 
 var options = {
     provider: 'google',
-   
-    // Optional depending on the providers
-    httpAdapter: 'https', // Default
-    apiKey: 'AIzaSyCyrCSftGam0-rKNG6IQwobVMoo5j8QauY', // for Mapquest, OpenCage, Google Premier
-    formatter: null         // 'gpx', 'string', ...
+    httpAdapter: 'https', 
+    apiKey: '', 
+    formatter: null
   };
 
 var geocoder = NodeGeocoder(options);
 
-
+// route retrieves art details from db
 router.get("/table", function(req,res){
-
     artAction.all(function(data){
         var artTableList = {
             art:data
         };
         res.send(artTableList);
     });
-    
 });
 
 router.get("/", function(req,res){
@@ -40,24 +36,28 @@ router.get("/api", function(req,res){
         res.render("api");
 });
     
-
+// add new artwork form route
 router.post("/upload", function(req, res){
     var geoLat = '';
     var geoLong = '';
     var newArtDetails = {};
-    //file upload env setup
     var imgFilePath = '';
     let image = req.files.image;
     var isImgPresent = detect('./public/assets/img/' + image.name);
-
+    
+    // if file uploaded failed 
     if(!req.files){
         return res.status(400).send('No files were uploaded.');
     }
+
+    // take form address input and geocode (get latitude, longitude)
     geocoder.geocode(req.body.address)
+    // assign return latitude and longitude coordinates to variables
     .then(function(res) {
         geoLat = res[0].latitude;
         geoLong = res[0].longitude;
-      imageUpload();
+        // start the image upload and db calls
+        imageUpload();
     })
     .catch(function(err) {
       console.log(err);
@@ -75,14 +75,12 @@ router.post("/upload", function(req, res){
                     }
                 })
         } else {
-             res.send("file didn't upload because the same name exists on the server.  Please rename and try again.");
-             return;
+             return res.send("file didn't upload because the same name exists on the server.  Please rename and try again.");
+            
         }
         newArtObject();
         artAction.add(newArtDetails);
         res.redirect('/');
-
-
     }
 
     function newArtObject(){
@@ -96,7 +94,6 @@ router.post("/upload", function(req, res){
             filePath: imgFilePath
         }
     }   
- 
 });
 
 module.exports = router;
