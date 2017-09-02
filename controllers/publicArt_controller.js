@@ -43,7 +43,6 @@ router.post("/upload", function(req, res){
     var newArtDetails = {};
     var imgFilePath = '';
     let image = req.files.image;
-    var isImgPresent = detect('./public/assets/img/' + image.name);
     
     // if file uploaded failed 
     if(!req.files){
@@ -64,6 +63,7 @@ router.post("/upload", function(req, res){
     });
     
     function imageUpload() {
+        var isImgPresent = detect('./public/assets/img/' + image.name);
         if (isImgPresent == null){
             if (image.mimetype !== 'image/png' && image.mimetype !== 'image/jpeg'){
                 return res.send("You tried uploading a bad filetype.  Please upload PNG or JPEG files ONLY!")

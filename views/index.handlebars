@@ -39,83 +39,92 @@
         var sqlData = {};
 
         // setup GET call to express 
-        function httpGetAsync(theUrl, callback){
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function() { 
-                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-                    callback(xmlHttp.responseText);
-            }
-            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        function httpGetAsync(method, url) {
+            return new Promise(function (resolve, reject) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open(method, url, true); // true for asynchronous 
+                xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                        resolve(xmlHttp.responseText);
+                    }
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                };
             xmlHttp.send(null);
+            });
         }
         // google maps api initialization
         function initMap() {
             // create promise to handle GET call to /table that returns art details from the db
-            var promise = new Promise (function(resolve,reject){
-                httpGetAsync('./table', function(data){
-                    sqlData = data;
-                    if(sqlData !== 'undefined'){
-                        resolve(sqlData);
-                    } else {
-                        reject(Error("couldn't retrieve db data, check routes and ORM!"));
-                    }
-                });
-            });
-            // wait for promise data and then continue with google maps initialization
-            promise.then(function(sqlData){
-                var JSONItems = [];
-                var map = new google.maps.Map(document.getElementById('map'), {zoom: 12, passive: true}); 
-                var geocoder = new google.maps.Geocoder;
-                
-                geocoder.geocode({'address': 'Chicago'}, function(results, status) {
-                    if (status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    var parsedJSON = JSON.parse(sqlData);
-                    var parsedJSONArray = parsedJSON.art;
-                    // cycle through db data returned from promise call and populate map with markers, infowindows
-                    parsedJSONArray.forEach(function(element){
-                        var geoObject = {
-                            lat: parseFloat(element.lat),
-                            lng: parseFloat(element.long)
+            httpGetAsync('GET','./table')
+                .then(
+                        function fulfilled(sqlData){
+                            return sqlData;
+                        },
+                        function rejected(err){
+                            console.log(err);
                         }
-                        new google.maps.Marker({
-                            map: map,
-                            position: geoObject
-                        });
-                        // setup infowindow template
-                        var contentString = '<div id="content">'+
-                            '<div id="siteNotice">' +
-                            '</div>' + '<div style="float:left"><img height="200px" width="200px" src='+element.path+'></div>'+
-                           '<div id="bodyContent">' + '<p>artist(if known): '+ element.artist + '</p><p>title(if known):'+element.title+'</p><p>description: '+ element.description +'</p>'+
-                            '<p>Address: '+ element.address +'</p><a href='+ element.path +'>Click for larger image</a>'
-                            '</div>' +
-                            '</div>'; 
-                        // create infowindow 
-                        var infowindow = new google.maps.InfoWindow({
-                            content: contentString
-                        });
-                        // change default google marker icon pin to scaled down user uploaded picture
-                         var icon = {
-                             url: element.path,
-                             scaledSize: new google.maps.Size(50, 50)
-                         }
-                        var marker = new google.maps.Marker({
-                            position: geoObject,
-                            map: map,
-                             //title: element.
-                            icon: icon 
-                        });
-                        marker.addListener('click', function() {
-                            infowindow.open(map, marker);
-                        });
-                    })
+                )
+                .then(function(sqlData){
+                    var JSONItems = [];
+                    var map = new google.maps.Map(document.getElementById('map'), {zoom: 12, passive: true}); 
+                    var geocoder = new google.maps.Geocoder;
+                    
+                    geocoder.geocode({'address': 'Chicago'}, function(results, status) {
+                        if (status === 'OK') {
+                        map.setCenter(results[0].geometry.location);
+                        var parsedJSON = JSON.parse(sqlData);
+                        var parsedJSONArray = parsedJSON.art;
+                        // cycle through db data returned from promise call and populate map with markers, infowindows
+                        parsedJSONArray.forEach(function(element){
+                            var geoObject = {
+                                lat: parseFloat(element.lat),
+                                lng: parseFloat(element.long)
+                            }
+                            new google.maps.Marker({
+                                map: map,
+                                position: geoObject
+                            });
+                            // setup infowindow template
+                            var contentString = '<div id="content">'+
+                                '<div id="siteNotice">' +
+                                '</div>' + '<div style="float:left"><img height="200px" width="200px" src='+element.path+'></div>'+
+                            '<div id="bodyContent">' + '<p>artist(if known): '+ element.artist + '</p><p>title(if known):'+element.title+'</p><p>description: '+ element.description +'</p>'+
+                                '<p>Address: '+ element.address +'</p><a href='+ element.path +'>Click for larger image</a>'
+                                '</div>' +
+                                '</div>'; 
+                            // create infowindow 
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString
+                            });
+                            // change default google marker icon pin to scaled down user uploaded picture
+                            var icon = {
+                                url: element.path,
+                                scaledSize: new google.maps.Size(50, 50)
+                            }
+                            var marker = new google.maps.Marker({
+                                position: geoObject,
+                                map: map,
+                                //title: element.
+                                icon: icon 
+                            });
+                            marker.addListener('click', function() {
+                                infowindow.open(map, marker);
+                            });
+                        })
 
-                    } else {
-                        window.alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                });
-            })  
-           
+                        } else {
+                            window.alert('Geocode was not successful for the following reason: ' + status);
+                        }
+                    });
+
+                    })
+                    .catch(function(err){
+                        console.log('Augh, there was an error!', err.statusText);
+                    });
+                    
         }  
 
     </script>
