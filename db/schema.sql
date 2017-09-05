@@ -43,19 +43,14 @@ CREATE TABLE `art` (
   `media` varchar(250) DEFAULT NULL,
   `description` mediumtext,
   `viewable` tinyint(1) NOT NULL DEFAULT '0',
-  `img_file_path` varchar(250) DEFAULT NULL,
-  `geolat` float(10,6) DEFAULT NULL,
-  `geolng` float(10,6) DEFAULT NULL,
-  `google_geo` json NOT NULL,
-  `street_number` int(15) DEFAULT NULL,
-  `route` varchar(100) DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
-  `state` varchar(20) DEFAULT NULL,
-  `zip` int(6) DEFAULT NULL,
+  `path` varchar(250) DEFAULT NULL,
+  `lat` double unsigned zerofill DEFAULT NULL,
+  `long` double DEFAULT NULL,
+  `location` varchar(250) NOT NULL DEFAULT '',
   `user_id` int(11) DEFAULT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-);
+); ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # Dump of table user
 # ------------------------------------------------------------
